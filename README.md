@@ -20,11 +20,11 @@ Now that the code has been retrieved the user can use it to get a access_token. 
 
 POST Method Type: `x-www-form-urlencoded`
 Post Body:
-`grant_type`: `authorization_code`
-`client_id`: `Retrieved from Application`
-`client_secret`: `Retrieved from Application`
-`code`: `Retrieved from the previous step`
-`redirect_uri`: `Retrieved from Application`
+1. `grant_type`: `authorization_code`
+2. `client_id`: `Retrieved from Application`
+3. `client_secret`: `Retrieved from Application`
+4. `code`: `Retrieved from the previous step`
+5. `redirect_uri`: `Retrieved from Application`
 
 Returns the following JSON payload
 ```
@@ -42,10 +42,10 @@ The access_token lasts 5 minutes before it expires so we can refresh it if we ne
 
 POST Method Type: `x-www-form-urlencoded`
 Post Body:
-`grant_type`: `refresh_token`
-`client_id`: `Retrieved from Application`
-`client_secret`: `Retrieved from Application`
-`refresh_token`: `Retrieved from the previous step`
+1. `grant_type`: `refresh_token`
+2. `client_id`: `Retrieved from Application`
+3. `client_secret`: `Retrieved from Application`
+4. `refresh_token`: `Retrieved from the previous step`
 
 Returns the following JSON payload
 ```
