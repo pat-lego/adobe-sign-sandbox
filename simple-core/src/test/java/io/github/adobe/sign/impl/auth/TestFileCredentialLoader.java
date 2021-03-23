@@ -16,7 +16,6 @@ public class TestFileCredentialLoader {
         Credentials creds = loader.loadCredentials();
         assertEquals("my-client-id", creds.getClientId());
         assertEquals("my-client-secret", creds.getClientSecret());
-        assertEquals("90210", creds.getCode());
     }
     
 }

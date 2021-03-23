@@ -28,12 +28,11 @@ public class FileCredentialLoader implements CredentialLoader {
             String clientSecret = props.getProperty(CLIENT_SECRET);
             String code = props.getProperty(CODE);
             String redirectUri = props.getProperty(REDIRECT_URI);
-
-            creds.setRedirectUri(redirectUri);
+         
             creds.setClientId(clientId);
             creds.setClientSecret(clientSecret);
             creds.setCode(code);
-
+            creds.setRedirectUri(redirectUri);
             return creds;
 
         } catch (Exception e) {

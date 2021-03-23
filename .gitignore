@@ -30,3 +30,4 @@ org.eclipse.jdt.apt.core.prefs
 org.eclipse.jdt.core.prefs
 org.eclipse.m2e.core.prefs
 .DS_Store
+simple-core/src/test/resources/auth/actualSignCreds.properties
