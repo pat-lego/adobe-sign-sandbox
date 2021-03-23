@@ -4,17 +4,17 @@
   <groupId>io.github.adobe.sign</groupId>
   <artifactId>adobe-sign-sandbox</artifactId>
   <version>1.0-SNAPSHOT</version>
-  
+
   <name>Adobe Sign Sandbox</name>
-  
+
   <packaging>pom</packaging>
-  
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-  
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -23,9 +23,21 @@
         <version>5.7.1</version>
         <scope>test</scope>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.13</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.6</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <modules>
     <module>core</module>
     <module>simple-core</module>
