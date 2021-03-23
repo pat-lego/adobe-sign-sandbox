@@ -55,3 +55,32 @@ Returns the following JSON payload
     "expires_in": 3600
 }
 ```
+
+# Q&A
+
+1. What's the difference between a transient document and a library document?
+
+Answer: Transient documents can only be referenced for 7 days and then are deleted from the Adobe Sign document cloud. Library documents can be referenced whenever, they are never deleted from the Document Cloud library.
+
+2. What if an agreement that refers to a transient document lasts longer then 7 days?
+
+Answer: Agreements do not refer to the transient document directly, instead they refer to a copy of a transient document.
+
+3. What's the difference between MegaSign and GigaSign?
+
+| Differences                           | MegaSign                                 | GigaSign                                                       |
+|---------------------------------------|------------------------------------------|----------------------------------------------------------------|
+| Number of agreements that can be sent | 300                                      | 1500                                                           |
+| Can submit different documents        | No always the same document              | Yes, can send different document templates                     |
+| Can submit to various signers         | No only one recipient                    | Yes can submit to various recipients in parallel or sequential |
+| Is managed in the cloud               | Yes through the sign dashboard           | No, managed by the client using a runnable JAR file            |
+| Input data format                     | CSV                                      | CSV                                                            |
+| Can view who signed the agreement     | Yes, can view individuals who have signed the agreement as well as nudge the others who have not | Yes, can view the individuals who have signed the agreement |
+
+4. What's a webform in Adobe Sign? 
+
+Answer: A web form is an agreement that does not an initial signer. Instead a URL is given to a user who can then put the link on their website. The viewer who then fills out the form and submits it becomes the first signer in the signature process. Proceeding users may follow once the webform is signed. Users can create a webform on the Adobe Sign splash page.
+
+5. Can Adobe Sign agreements contain file attachments?
+
+Yes, there is a file attachment component that will convert all attachments to the PDF and add it to the signed agreement.
