@@ -84,3 +84,7 @@ Answer: A web form is an agreement that does not an initial signer. Instead a UR
 5. Can Adobe Sign agreements contain file attachments?
 
 Yes, there is a file attachment component that will convert all attachments to the PDF and add it to the signed agreement.
+
+6. What files does Adobe Sign support for signing?
+
+Answer: Word, Excel, Powerpoint, Images, HTML, Text
