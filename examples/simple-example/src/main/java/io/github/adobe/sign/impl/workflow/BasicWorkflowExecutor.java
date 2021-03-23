@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import io.github.adobe.sign.core.actions.SignAction;
 import io.github.adobe.sign.core.actions.SignActionMetadata;
@@ -85,9 +86,9 @@ public class BasicWorkflowExecutor implements SignWorkflow {
         
         try {
             for (SignAction action : workflow) {
-                metadata = action.beforeAction(this.signAuth, metadata, this.signLogger);
-                metadata = action.doAction(this.signAuth, metadata, this.signLogger);
-                metadata = action.postAction(this.signAuth, metadata, this.signLogger);
+                metadata = Optional.ofNullable(action.beforeAction(this.signAuth, metadata, this.signLogger)).orElse(metadata);
+                metadata = Optional.ofNullable(action.doAction(this.signAuth, metadata, this.signLogger)).orElse(metadata);
+                metadata = Optional.ofNullable(action.postAction(this.signAuth, metadata, this.signLogger)).orElse(metadata);
             }
         } catch (Exception e) {
             return () ->  { return Boolean.FALSE; };

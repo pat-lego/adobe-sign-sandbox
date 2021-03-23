@@ -11,7 +11,7 @@ import io.github.adobe.sign.impl.auth.FileCredentialLoader;
 
 public class TestTransientDocument {
 
-    /**@Test
+    @Test
     public void testTransientDocument() throws SignActionException {
         CredentialLoader credentialLoader = new FileCredentialLoader("src/test/resources/auth/actualSignCreds.properties");
         SignAuth auth = new BasicSignAuth();
@@ -19,6 +19,6 @@ public class TestTransientDocument {
         SignAction action = new TransientDocument(credentialLoader);
         
         action.doAction(auth, null, null);
-    }**/
+    }
     
 }

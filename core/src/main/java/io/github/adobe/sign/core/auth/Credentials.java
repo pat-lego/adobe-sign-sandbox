@@ -3,11 +3,8 @@ package io.github.adobe.sign.core.auth;
 public class Credentials {
     private String clientId;
     private String clientSecret;
-    private Integer expires;
-    private String tokenType;
-    private String code;
-    private String redirectUri;
-
+    private String refreshToken;
+    
     public String getClientId() {
         return clientId;
     }
@@ -20,29 +17,11 @@ public class Credentials {
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
     }
-    public Integer getExpires() {
-        return expires;
+    public String getRefreshToken() {
+        return refreshToken;
     }
-    public void setExpires(Integer expires) {
-        this.expires = expires;
-    }
-    public String getTokenType() {
-        return tokenType;
-    }
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
-    }
-    public String getCode() {
-        return code;
-    }
-    public void setCode(String code) {
-        this.code = code;
-    }
-    public String getRedirectUri() {
-        return redirectUri;
-    }
-    public void setRedirectUri(String redirectUri) {
-        this.redirectUri = redirectUri;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
     
 }

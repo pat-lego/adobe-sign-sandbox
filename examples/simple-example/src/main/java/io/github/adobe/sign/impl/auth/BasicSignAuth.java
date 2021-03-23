@@ -28,14 +28,14 @@ import io.github.adobe.sign.core.auth.SignAuthException;
 public class BasicSignAuth implements SignAuth {
 
     @Override
-    public Authenticated refresh(CredentialLoader credentials, Authenticated authenticated) throws SignAuthException {
+    public Authenticated refresh(CredentialLoader credentials) throws SignAuthException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             Credentials creds = credentials.loadCredentials();
 
             List<NameValuePair> form = new ArrayList<>();
             form.add(new BasicNameValuePair(CredentialLoader.CLIENT_ID, creds.getClientId()));
             form.add(new BasicNameValuePair(CredentialLoader.CLIENT_SECRET, creds.getClientSecret()));
-            form.add(new BasicNameValuePair(SignAuth.REFRESH_TOKEN, authenticated.getRefreshToken()));
+            form.add(new BasicNameValuePair(CredentialLoader.REFRESH_TOKEN, creds.getRefreshToken()));
             form.add(new BasicNameValuePair(GRANT_TYPE, REFRESH_TOKEN_GT));
 
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
@@ -45,12 +45,14 @@ public class BasicSignAuth implements SignAuth {
 
             // Create a custom response handler
             ResponseHandler<Authenticated> responseHandler = response -> {
+                Authenticated authenticated = new Authenticated();
                 int status = response.getStatusLine().getStatusCode();
                 if (status >= 200 && status < 300) {
                     HttpEntity responseEntity = response.getEntity();
                     if (responseEntity != null) {
                         JsonObject payload = JsonParser.parseString(EntityUtils.toString(responseEntity)).getAsJsonObject();
                         authenticated.setAccessToken(payload.get(ACCESS_TOKEN).getAsString());
+                        authenticated.setRefreshToken(creds.getRefreshToken());
                         authenticated.setCreated(LocalDateTime.now());
                         authenticated.setExpiresIn(payload.get(EXPIRES_IN).getAsInt());
                         authenticated.setTokenType(payload.get(TOKEN_TYPE).getAsString());
@@ -74,55 +76,11 @@ public class BasicSignAuth implements SignAuth {
             return Boolean.FALSE;
         }
 
-        if (authenticated.getCreated().minusSeconds(authenticated.getExpiresIn()).compareTo(LocalDateTime.now()) <= 0) {
+        if (authenticated.getCreated().plusSeconds(authenticated.getExpiresIn()).compareTo(LocalDateTime.now()) <= 0) {
             return Boolean.FALSE;
         }
 
         return Boolean.TRUE;
-    }
-
-    @Override
-    public Authenticated authenticate(CredentialLoader credentials) throws SignAuthException {
-        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            Credentials creds = credentials.loadCredentials();
-
-            List<NameValuePair> form = new ArrayList<>();
-            form.add(new BasicNameValuePair(CredentialLoader.CLIENT_ID, creds.getClientId()));
-            form.add(new BasicNameValuePair(CredentialLoader.CLIENT_SECRET, creds.getClientSecret()));
-            form.add(new BasicNameValuePair(CredentialLoader.CODE, creds.getCode()));
-            form.add(new BasicNameValuePair(CredentialLoader.REDIRECT_URI, creds.getRedirectUri()));
-            form.add(new BasicNameValuePair(GRANT_TYPE, AUTHORIZATION_CODE_GT));
-
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
-
-            HttpPost httpPost = new HttpPost(SignAuth.TOKEN_URL);
-            httpPost.setEntity(entity);
-
-            // Create a custom response handler
-            ResponseHandler<Authenticated> responseHandler = response -> {
-                int status = response.getStatusLine().getStatusCode();
-                if (status >= 200 && status < 300) {
-                    HttpEntity responseEntity = response.getEntity();
-                    if (responseEntity != null) {
-                        Authenticated authenticated = new Authenticated();
-                        JsonObject payload = JsonParser.parseString(EntityUtils.toString(responseEntity)).getAsJsonObject();
-                        authenticated.setAccessToken(payload.get(ACCESS_TOKEN).getAsString());
-                        authenticated.setRefreshToken(payload.get(REFRESH_TOKEN).getAsString());
-                        authenticated.setCreated(LocalDateTime.now());
-                        authenticated.setExpiresIn(payload.get(EXPIRES_IN).getAsInt());
-                        authenticated.setTokenType(payload.get(TOKEN_TYPE).getAsString());
-                        return authenticated;
-                    } else {
-                        throw new ClientProtocolException("Unexpected response status: " + status);
-                    }
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
-                }
-            };
-            return httpclient.execute(httpPost, responseHandler);
-        } catch (Exception e) {
-            throw new SignAuthException(e.getMessage(), e);
-        }
     }
 
 }
