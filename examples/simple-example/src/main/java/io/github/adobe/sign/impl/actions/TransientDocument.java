@@ -85,7 +85,7 @@ public class TransientDocument implements SignAction {
             };
 
             String transientId = client.execute(httpPost, responseHandler);
-            transientId = transientId + "a";
+            metadata.put("TRANSIENT_ID", transientId);
         } catch (Exception e) {
             throw new SignActionException(e.getMessage(), e);
         }
