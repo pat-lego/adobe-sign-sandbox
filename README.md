@@ -91,4 +91,4 @@ Answer: Word, Excel, Powerpoint, Images, HTML, Text
 
 7. What if my application does not support oAuth?
 
-Answer: Use an integration instead of oAuth
+Answer: Use an integration key instead of oAuth
