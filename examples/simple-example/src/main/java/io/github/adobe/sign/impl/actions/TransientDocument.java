@@ -19,11 +19,11 @@ import org.apache.http.util.EntityUtils;
 
 import io.github.adobe.sign.core.actions.SignAction;
 import io.github.adobe.sign.core.actions.SignActionException;
-import io.github.adobe.sign.core.actions.SignActionMetadata;
 import io.github.adobe.sign.core.auth.Authenticated;
 import io.github.adobe.sign.core.auth.CredentialLoader;
 import io.github.adobe.sign.core.auth.SignAuth;
 import io.github.adobe.sign.core.logger.SignLogger;
+import io.github.adobe.sign.core.metadata.SignMetadata;
 
 public class TransientDocument implements SignAction {
 
@@ -35,13 +35,13 @@ public class TransientDocument implements SignAction {
     }
 
     @Override
-    public SignActionMetadata beforeAction(SignAuth signAuth, SignActionMetadata metadata, SignLogger logger)
+    public SignMetadata beforeAction(SignAuth signAuth, SignMetadata metadata, SignLogger logger)
             throws SignActionException {
         return metadata;
     }
 
     @Override
-    public SignActionMetadata doAction(SignAuth signAuth, SignActionMetadata metadata, SignLogger logger)
+    public SignMetadata doAction(SignAuth signAuth, SignMetadata metadata, SignLogger logger)
             throws SignActionException {
         List<Header> headers = null;
 
@@ -94,7 +94,7 @@ public class TransientDocument implements SignAction {
     }
 
     @Override
-    public SignActionMetadata postAction(SignAuth signAuth, SignActionMetadata metadata, SignLogger logger)
+    public SignMetadata postAction(SignAuth signAuth, SignMetadata metadata, SignLogger logger)
             throws SignActionException {
         return metadata;
 

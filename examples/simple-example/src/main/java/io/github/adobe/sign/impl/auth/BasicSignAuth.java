@@ -30,7 +30,7 @@ public class BasicSignAuth implements SignAuth {
     @Override
     public Authenticated refresh(CredentialLoader credentials) throws SignAuthException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            Credentials creds = credentials.loadCredentials();
+            Credentials creds = credentials.loadCredentials(null);
 
             List<NameValuePair> form = new ArrayList<>();
             form.add(new BasicNameValuePair(CredentialLoader.CLIENT_ID, creds.getClientId()));

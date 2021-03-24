@@ -1,8 +1,8 @@
-package io.github.adobe.sign.core.actions;
+package io.github.adobe.sign.core.metadata;
 
 import java.util.Map;
 
-public interface SignActionMetadata {
+public interface SignMetadata {
     
     public Map<String, Object> getMetadata();
 

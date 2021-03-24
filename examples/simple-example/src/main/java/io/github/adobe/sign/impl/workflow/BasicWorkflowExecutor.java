@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import io.github.adobe.sign.core.actions.SignAction;
-import io.github.adobe.sign.core.actions.SignActionMetadata;
 import io.github.adobe.sign.core.auth.SignAuth;
 import io.github.adobe.sign.core.logger.SignLogger;
+import io.github.adobe.sign.core.metadata.SignMetadata;
 import io.github.adobe.sign.core.workflow.SignWorkflow;
 import io.github.adobe.sign.core.workflow.SignWorkflowException;
 import io.github.adobe.sign.core.workflow.SignWorkflowResult;
@@ -58,7 +58,7 @@ public class BasicWorkflowExecutor implements SignWorkflow {
 
     @Override
     public SignWorkflowResult invoke(Map<String, Object> signWorkflow) {
-        SignActionMetadata metadata = new SignActionMetadata(){
+        SignMetadata metadata = new SignMetadata(){
 
             private Map<String, Object> map = new HashMap<String, Object>();
             

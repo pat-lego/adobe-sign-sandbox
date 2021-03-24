@@ -7,6 +7,7 @@ import java.util.Properties;
 import io.github.adobe.sign.core.auth.CredentialLoader;
 import io.github.adobe.sign.core.auth.CredentialLoaderException;
 import io.github.adobe.sign.core.auth.Credentials;
+import io.github.adobe.sign.core.metadata.SignMetadata;
 
 public class FileCredentialLoader implements CredentialLoader {
 
@@ -17,7 +18,7 @@ public class FileCredentialLoader implements CredentialLoader {
     }
 
     @Override
-    public Credentials loadCredentials() throws CredentialLoaderException {
+    public Credentials loadCredentials(SignMetadata metadata) throws CredentialLoaderException {
         try(FileInputStream propertiesFile = new FileInputStream(this.credentialFile)) {
             Properties props = new Properties();
             Credentials creds = new Credentials();

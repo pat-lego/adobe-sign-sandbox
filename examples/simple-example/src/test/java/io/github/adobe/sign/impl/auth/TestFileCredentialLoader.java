@@ -13,7 +13,7 @@ public class TestFileCredentialLoader {
     @Test
     public void testLoading() throws CredentialLoaderException {
         CredentialLoader loader = new FileCredentialLoader("src/test/resources/auth/signCreds.properties");
-        Credentials creds = loader.loadCredentials();
+        Credentials creds = loader.loadCredentials(null);
         assertEquals("my-client-id", creds.getClientId());
         assertEquals("90210", creds.getRefreshToken());
         assertEquals("my-client-secret", creds.getClientSecret());
