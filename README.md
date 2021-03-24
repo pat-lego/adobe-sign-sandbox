@@ -88,3 +88,7 @@ Yes, there is a file attachment component that will convert all attachments to t
 6. What files does Adobe Sign support for signing?
 
 Answer: Word, Excel, Powerpoint, Images, HTML, Text
+
+7. What if my application does not support oAuth?
+
+Answer: Use an integration instead of oAuth
