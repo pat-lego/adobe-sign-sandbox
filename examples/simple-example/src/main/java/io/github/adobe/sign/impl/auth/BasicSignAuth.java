@@ -24,11 +24,12 @@ import io.github.adobe.sign.core.auth.CredentialLoader;
 import io.github.adobe.sign.core.auth.Credentials;
 import io.github.adobe.sign.core.auth.SignAuth;
 import io.github.adobe.sign.core.auth.SignAuthException;
+import io.github.adobe.sign.core.metadata.SignMetadata;
 
 public class BasicSignAuth implements SignAuth {
 
     @Override
-    public Authenticated refresh(CredentialLoader credentials) throws SignAuthException {
+    public Authenticated refresh(CredentialLoader credentials, SignMetadata metadata) throws SignAuthException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             Credentials creds = credentials.loadCredentials(null);
 

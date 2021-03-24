@@ -18,7 +18,7 @@ public class TestBasicSignAuth {
     public void testRefreshToken() throws SignAuthException {
         CredentialLoader loader = new FileCredentialLoader("src/test/resources/auth/actualSignCreds.properties");
         SignAuth basic = new BasicSignAuth();
-        Authenticated auth = basic.refresh(loader);
+        Authenticated auth = basic.refresh(loader, null);
 
         assertNotNull(auth);
         assertEquals(3600, auth.getExpiresIn());

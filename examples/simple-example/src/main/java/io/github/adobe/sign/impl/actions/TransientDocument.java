@@ -46,7 +46,7 @@ public class TransientDocument implements SignAction {
         List<Header> headers = null;
 
         try {
-            Authenticated authenticated = signAuth.refresh(this.credentialLoader);
+            Authenticated authenticated = signAuth.refresh(this.credentialLoader, metadata);
             Header bearerToken = new BasicHeader("Authorization",
                     String.format("Bearer %s", authenticated.getAccessToken()));
             Header apiUser = new BasicHeader("x-api-user", "email:patrique.legault+dev@aftia.com");
