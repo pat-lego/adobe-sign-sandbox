@@ -14,11 +14,14 @@ public class Main {
         CommandLineParser parser = new DefaultParser();
         Reflections reflections = new Reflections("io.github.adobe.sign.impl.workflow");
 
-        Set<Class<?>> cliComponents = reflections.getTypesAnnotatedWith(io.github.adobe.sign.impl.CliComponent.class);
+        Set<Class<?>> cliComponents = reflections.getTypesAnnotatedWith(CliComponent.class);
 
-        for (Class cliComponent: cliComponents) {
+        for (Class cliComponent : cliComponents) {
             CliCommand command = (CliCommand) cliComponent.getDeclaredConstructor().newInstance();
-            System.out.println(command.execute(parser, SignWorkflowResult.class, args).getMetadata().getValue("TRANSIENT_ID"));
+            if (command.getClass().getAnnotation(CliComponent.class).name().equals("Simple Workflow")) {
+                System.out.println(
+                        command.execute(parser, SignWorkflowResult.class, args).getMetadata().getValue("TRANSIENT_ID"));
+            }
         }
 
     }
