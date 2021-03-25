@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.adobe.sign.core.actions.SignAction;
+import io.github.adobe.sign.core.auth.SignAuth;
+import io.github.adobe.sign.core.logger.SignLogger;
 
 public interface SignWorkflow {
 
@@ -15,6 +17,6 @@ public interface SignWorkflow {
 
     public List<SignAction> getActions();
 
-    public SignWorkflowResult invoke(Map<String, Object> signWorkflow);
+    public SignWorkflowResult invoke(SignAuth signAuth, SignLogger signLogger, Map<String, Object> signWorkflow);
     
 }

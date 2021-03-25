@@ -18,14 +18,6 @@ public class BasicWorkflowExecutor implements SignWorkflow {
 
     List<SignAction> workflow = new ArrayList<>();
 
-    private SignAuth signAuth;
-    private SignLogger signLogger;
-
-    public BasicWorkflowExecutor(SignAuth auth, SignLogger logger) {
-        this.signAuth = auth;
-        this.signLogger = logger;
-    }
-
     @Override
     public void addAction(SignAction signAction) throws SignWorkflowException {
         if (signAction != null) {
@@ -57,7 +49,7 @@ public class BasicWorkflowExecutor implements SignWorkflow {
     }
 
     @Override
-    public SignWorkflowResult invoke(Map<String, Object> signWorkflow) {
+    public SignWorkflowResult invoke(SignAuth signAuth, SignLogger signLogger, Map<String, Object> signWorkflow) {
         SignMetadata metadata = new SignMetadata(){
 
             private Map<String, Object> map = new HashMap<String, Object>();
@@ -79,22 +71,52 @@ public class BasicWorkflowExecutor implements SignWorkflow {
 
             @Override
             public void addAll(Map<String, Object> map) {
-                map.putAll(map);
+                if (map != null) {
+                    map.putAll(map);
+                }
             }
             
         };
         
+        SignWorkflowResult result = new SignWorkflowResult(){
+
+            private Boolean result = Boolean.TRUE;
+            private SignMetadata metadata;
+
+            public void setSuccess(boolean result) {
+                this.result = result;
+            }
+
+            @Override
+            public Boolean getSuccess() {
+               return result;
+            }
+
+            @Override
+            public SignMetadata getMetadata() {
+                return metadata;
+            }
+
+            @Override
+            public void setMetadata(SignMetadata metadata) {
+                this.metadata = metadata;
+            }
+            
+        };
+        result.setMetadata(metadata);
+        
         try {
             for (SignAction action : workflow) {
-                metadata = Optional.ofNullable(action.beforeAction(this.signAuth, metadata, this.signLogger)).orElse(metadata);
-                metadata = Optional.ofNullable(action.doAction(this.signAuth, metadata, this.signLogger)).orElse(metadata);
-                metadata = Optional.ofNullable(action.postAction(this.signAuth, metadata, this.signLogger)).orElse(metadata);
+                metadata = Optional.ofNullable(action.beforeAction(signAuth, metadata, signLogger)).orElse(metadata);
+                metadata = Optional.ofNullable(action.doAction(signAuth, metadata, signLogger)).orElse(metadata);
+                metadata = Optional.ofNullable(action.postAction(signAuth, metadata, signLogger)).orElse(metadata);
             }
         } catch (Exception e) {
-            return () ->  { return Boolean.FALSE; };
+            result.setSuccess(false);
+            return result;
         }
         
-        return () ->  { return Boolean.TRUE; };
+        return result;
     }
 
 }
