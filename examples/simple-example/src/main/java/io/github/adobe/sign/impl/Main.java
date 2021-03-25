@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         CommandLineParser parser = new DefaultParser();
-        Reflections reflections = new Reflections("io.github.adobe.sign.impl.workflow");
+        Reflections reflections = new Reflections("io.github.adobe.sign.impl");
 
         Set<Class<?>> cliComponents = reflections.getTypesAnnotatedWith(CliComponent.class);
 
