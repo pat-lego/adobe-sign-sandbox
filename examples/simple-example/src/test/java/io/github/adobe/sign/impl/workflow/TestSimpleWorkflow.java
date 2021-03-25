@@ -14,7 +14,7 @@ public class TestSimpleWorkflow {
     public void testInitialize() throws SignWorkflowException {
         CredentialLoader fileCredentialLoader = new FileCredentialLoader("src/test/resources/auth/actualSignCreds.properties");
         SignAuth basic = new BasicSignAuth();
-        SimpleWorkflow workflow = new SimpleWorkflow(fileCredentialLoader, basic, null);
+        SimpleWorkflow workflow = new SimpleWorkflow(basic, null);
     }
     
 }
