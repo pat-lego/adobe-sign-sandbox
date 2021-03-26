@@ -22,7 +22,8 @@ public class Main {
         Options options = new Options();
         options.addOption(Option.builder("w").hasArg().build());
         CommandLineParser parser = new DefaultParser();
-        CommandLine cli = parser.parse(options, args, true);
+
+        CommandLine cli = parser.parse(options, getWorkflowName(args), true);
 
         Reflections reflections = new Reflections("io.github.adobe.sign.impl");
 
@@ -42,7 +43,20 @@ public class Main {
         }
     }
 
-    private static List<String> removeWorkflowName(String... args) {
+    public static String[] getWorkflowName(String... args) {
+        String[] result = new String[2];
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals(String.format("-%s", W))) {
+                result[0] = args[i];
+                result[1] = args[i+1];
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public static List<String> removeWorkflowName(String... args) {
         List<String> argsList = new LinkedList<>(Arrays.asList(args));
         for (int i = 0; i < argsList.size() - 1; i++) {
             if (argsList.get(i).equals(String.format("-%s", W))) {

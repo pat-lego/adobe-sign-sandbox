@@ -12,7 +12,7 @@
             "console": "internalConsole",
             "stopOnEntry": false,
             "mainClass": "io.github.adobe.sign.impl.Main",
-            "args": "-w \"Simple Workflow\" -c /Users/patriquelegault/Documents/repos/adobe-sign-sandbox/examples/simple-example/src/test/resources/auth/actualSignCreds.properties"
+            "args": "-c /Users/patriquelegault/Documents/repos/adobe-sign-sandbox/examples/simple-example/src/test/resources/auth/actualSignCreds.properties -w \"Simple Workflow\" "
         }
     ]
 }
