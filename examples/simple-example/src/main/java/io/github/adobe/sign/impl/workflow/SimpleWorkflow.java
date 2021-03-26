@@ -1,14 +1,18 @@
 package io.github.adobe.sign.impl.workflow;
 
+import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import io.github.adobe.sign.core.actions.SignAction;
 import io.github.adobe.sign.core.auth.CredentialLoader;
-import io.github.adobe.sign.impl.CliComponent;
 import io.github.adobe.sign.impl.CliCommand;
+import io.github.adobe.sign.impl.CliComponent;
 import io.github.adobe.sign.impl.actions.TransientDocument;
 import io.github.adobe.sign.impl.auth.BasicSignAuth;
 import io.github.adobe.sign.impl.auth.FileCredentialLoader;
@@ -21,29 +25,24 @@ public class SimpleWorkflow extends BasicWorkflowExecutor implements CliCommand 
 
     @Override
     public Options getOptions() {
-        return new Options()
-                .addOption(Option.builder("c").hasArg(true).required(true).desc("The path to the cred file").build());
+        Options options = new Options();
+        options.addOption(Option.builder("c").hasArg().build());
+        return options;
     }
 
     @Override
-    public <T> T execute(CommandLineParser cli, Class<T> type, String... args) throws Exception {
-        CommandLine parsedCli = null;
-        if (args != null) {
-            parsedCli = cli.parse(getOptions(), args);
+    public <T> T execute(Class<T> type, List<String> args) throws Exception {
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cli = parser.parse(getOptions(), args.stream().toArray(String[]::new), true);
+        CredentialLoader credentialLoader = new FileCredentialLoader(cli.getOptionValue("c"));
+        this.transientDocument = new TransientDocument(credentialLoader);
 
-            if (parsedCli != null && parsedCli.hasOption("c")) {
+        // Add the work item to the workflow
+        this.addAction(this.transientDocument);
 
-                CredentialLoader credentialLoader = new FileCredentialLoader(parsedCli.getOptionValue("c"));
-                this.transientDocument = new TransientDocument(credentialLoader);
+        // Run it
+        return type.cast(this.invoke(new BasicSignAuth(), null, null));
 
-                // Add the work item to the workflow
-                this.addAction(this.transientDocument);
-
-                // Run it
-                return type.cast(this.invoke(new BasicSignAuth(), null, null));
-            }
-        }
-        throw new IllegalArgumentException("Cannot have a null CLI string sent to be processed");
     }
 
 }

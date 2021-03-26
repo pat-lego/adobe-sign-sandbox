@@ -1,12 +1,12 @@
 package io.github.adobe.sign.impl;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
+import java.util.List;
+
 import org.apache.commons.cli.Options;
 
 public interface CliCommand {
     
     public Options getOptions();
 
-    public <T> T execute(CommandLineParser cli, Class<T> type, String... args) throws Exception;
+    public abstract <T> T execute(Class<T> type, List<String> args) throws Exception;
 }

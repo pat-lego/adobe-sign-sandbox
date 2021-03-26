@@ -13,8 +13,7 @@ import io.github.adobe.sign.core.metadata.SignMetadata;
 import io.github.adobe.sign.core.workflow.SignWorkflow;
 import io.github.adobe.sign.core.workflow.SignWorkflowException;
 import io.github.adobe.sign.core.workflow.SignWorkflowResult;
-
-public class BasicWorkflowExecutor implements SignWorkflow {
+public abstract class BasicWorkflowExecutor implements SignWorkflow {
 
     List<SignAction> workflow = new ArrayList<>();
 
