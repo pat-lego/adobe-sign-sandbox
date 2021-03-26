@@ -26,14 +26,14 @@ public class SimpleWorkflow extends BasicWorkflowExecutor implements CliCommand 
     @Override
     public Options getOptions() {
         Options options = new Options();
-        options.addOption(Option.builder("c").hasArg().build());
+        options.addOption(Option.builder("c").hasArg().required().build());
         return options;
     }
 
     @Override
     public <T> T execute(Class<T> type, List<String> args) throws Exception {
         CommandLineParser parser = new DefaultParser();
-        CommandLine cli = parser.parse(getOptions(), args.stream().toArray(String[]::new), true);
+        CommandLine cli = parser.parse(getOptions(), args.stream().toArray(String[]::new));
         CredentialLoader credentialLoader = new FileCredentialLoader(cli.getOptionValue("c"));
         this.transientDocument = new TransientDocument(credentialLoader);
 
