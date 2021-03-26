@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
+            "name": "Pat Debug (Launch)",
             "request": "launch",
             "cwd": "${workspaceFolder}/examples/simple-example",
             "console": "internalConsole",
