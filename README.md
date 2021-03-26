@@ -92,3 +92,13 @@ Answer: Word, Excel, Powerpoint, Images, HTML, Text
 7. What if my application does not support oAuth?
 
 Answer: Use an integration key instead of oAuth
+
+## How to execute
+
+1. Build the project with `mvn clean install -DskipTests` (some of the tests require a specific credential file)
+2. Navigate to the simple-example/target folder and execute the comamnd below
+```
+
+java -jar simple-example-1.0-SNAPSHOT-jar-with-dependencies.jar -w "Simple Workflow" -c <path to credential file>
+
+```
