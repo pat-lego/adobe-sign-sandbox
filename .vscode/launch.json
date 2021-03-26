@@ -6,13 +6,13 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Pat Debug (Launch)",
+            "name": "Debug (Launch)",
             "request": "launch",
             "cwd": "${workspaceFolder}/examples/simple-example",
             "console": "internalConsole",
             "stopOnEntry": false,
             "mainClass": "io.github.adobe.sign.impl.Main",
-            "args": "-c /Users/patriquelegault/Documents/repos/adobe-sign-sandbox/examples/simple-example/src/test/resources/auth/actualSignCreds.properties -w \"Simple Workflow\" "
+            "args": "-c ${workspaceFolder}/examples/simple-example/src/test/resources/auth/actualSignCreds.properties -w \"Simple Workflow\" "
         }
     ]
 }
