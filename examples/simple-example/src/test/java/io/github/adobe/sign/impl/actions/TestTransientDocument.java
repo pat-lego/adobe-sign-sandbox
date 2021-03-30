@@ -43,6 +43,24 @@ public class TestTransientDocument {
                this.map.putAll(map);
             }
 
+            @Override
+            public <T> T getValue(String key, Class<T> value) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public <T> T getResult(Class<T> value) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public Object getResult() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
         };
         
         CredentialLoader credentialLoader = new FileCredentialLoader("src/test/resources/auth/actualSignCreds.properties");

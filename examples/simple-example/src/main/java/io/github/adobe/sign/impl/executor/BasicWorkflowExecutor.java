@@ -74,6 +74,21 @@ public abstract class BasicWorkflowExecutor implements SignWorkflow {
                     map.putAll(map);
                 }
             }
+
+            @Override
+            public <T> T getValue(String key, Class<T> type) {
+                return type.cast(this.map.get(key));
+            }
+
+            @Override
+            public <T> T getResult(Class<T> type) {
+                return this.getValue("TRANSIENT_ID", type);
+            }
+
+            @Override
+            public Object getResult() {
+                return this.getValue("TRANSIENT_ID");
+            }
             
         };
         

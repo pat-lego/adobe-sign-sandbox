@@ -22,7 +22,7 @@ public class Main {
             CliCommand command = (CliCommand) cliComponent.getDeclaredConstructor().newInstance();
             if (command.getClass().getAnnotation(CliComponent.class).name().equals(getWorkflowName(args))) {
                 System.out.println(command.execute(SignWorkflowResult.class, removeWorkflowName(args)).getMetadata()
-                        .getValue("TRANSIENT_ID"));
+                        .getResult());
             }
         }
 
